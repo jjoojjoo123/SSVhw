@@ -1,0 +1,170 @@
+\documentclass[11pt]{article}
+\usepackage{xeCJK}
+\usepackage{changepage}
+\usepackage{bussproofs}
+\usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+
+\title{HW1}
+\author{r08725027 林宏陽}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}
+	\item
+		\begin{enumerate}
+		\item Because both CNF and DNF must be NNF, we apply the Double Negation law, De Morgan's law and the following equivalences to every occurrence in the target formula recursively.
+			$$ \phi \to \psi \equiv \neg \phi \lor \psi $$
+			$$ \phi \leftrightarrow \psi \equiv (\phi \to \psi) \land (\psi \to \phi) $$
+		\item For every subformula in the form $\phi \lor (\psi_{1} \land \psi_{2})$, substitute it by $(\phi \lor \psi_{1}) \land (\phi \lor \psi_{2})$ by using the distributivity law recursively. Similarly, for every subformula in the form $(\phi_{1} \land \phi_{2}) \lor \psi$, substitute it by $(\phi_{1} \lor \psi) \land (\phi_{2} \lor \psi)$. 
+		\end{enumerate}
+
+		After step (b), there is no such two forms in the target formula, therefore, it is transformed into the formula in CNF.
+		For the case of DNF, simply dualise step (b). (swap $\land$ and $\lor$)
+		
+	\item 
+		\begin{enumerate}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \lor q \to r, p \vdash p \lor q \to r$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \lor q \to r, p \vdash p$}
+				\RightLabel{$(\lor I_{1})$}
+				\UnaryInfC{$p \lor q \to r, p \vdash p \lor q$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$p \lor q \to r, p \vdash r$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$p \lor q \to r \vdash p \to r$}
+
+				\AxiomC{$\alpha$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$p \lor q \to r \vdash q \to r$}
+				\RightLabel{$(\land I)$}
+				\BinaryInfC{$p \lor q \to r \vdash (p \to r) \land (q \to r)$}
+			\end{prooftree}
+			where $\alpha$ is the following tree :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \lor q \to r, q \vdash p \lor q \to r$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \lor q \to r, q \vdash q$}
+				\RightLabel{$(\lor I_{2})$}
+				\UnaryInfC{$p \lor q \to r, q \vdash p \lor q$}
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$p \lor q \to r, q \vdash r$}
+			\end{prooftree}
+		
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \land q \to r, p, q \vdash p \land q \to r$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \land q \to r, p, q \vdash p$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$p \land q \to r, p, q \vdash q$}
+
+				\RightLabel{$(\land I)$}
+				\BinaryInfC{$p \land q \to r, p, q \vdash p \land q$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$p \land q \to r, p, q \vdash r$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$p \land q \to r, p \vdash q \to r$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$p \land q \to r \vdash p \to (q \to r)$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\vdash (p \land q \to r) \to (p \to (q \to r))$}
+			\end{prooftree}
+		\end{enumerate}
+	\newpage
+	\item 
+		\begin{enumerate}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\neg p \lor q, p \vdash \neg p \lor q$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\neg p \lor q, p, \neg p, \neg q \vdash p$}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\neg p \lor q, p, \neg p, \neg q \vdash \neg p$}
+				\RightLabel{$(\land I)$}
+				\BinaryInfC{$\neg p \lor q, p, \neg p, \neg q \vdash p \land \neg p$}
+				\RightLabel{$(\neg I)$}
+				\UnaryInfC{$\neg p \lor q, p, \neg p \vdash \neg \neg q$}
+				\RightLabel{$(\neg \neg E)$}
+				\UnaryInfC{$\neg p \lor q, p, \neg p \vdash q$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\neg p \lor q, p, q \vdash q$}
+
+				\RightLabel{$(\lor E)$}
+				\TrinaryInfC{$\neg p \lor q, p \vdash q$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\neg p \lor q \vdash p \to q$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\vdash (\neg p \lor q) \to (p \to q)$}
+			\end{prooftree}
+
+			\item ~
+			\begin{prooftree}
+				\AxiomC{$\beta$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p \vdash \neg p$}
+
+				\RightLabel{$(\land I)$}
+				\BinaryInfC{$(p \to q) \to p, \neg p \vdash p \land \neg p$}
+				\RightLabel{$(\neg I)$}
+				\UnaryInfC{$(p \to q) \to p \vdash \neg \neg p$}
+				\RightLabel{$(\neg \neg E)$}
+				\UnaryInfC{$(p \to q) \to p \vdash p$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\vdash ((p \to q) \to p) \to p$}
+			\end{prooftree}
+			where $\beta$ is the following tree :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p \vdash (p \to q) \to p$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p, p, \neg q \vdash p$}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p, p, \neg q \vdash \neg p$}
+				\RightLabel{$(\land I)$}
+				\BinaryInfC{$(p \to q) \to p, \neg p, p, \neg q \vdash p \land \neg p$}
+				\RightLabel{$(\neg I)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p, p \vdash \neg \neg q$}
+				\RightLabel{$(\neg \neg E)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p, p \vdash q$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$(p \to q) \to p, \neg p \vdash p \to q$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$(p \to q) \to p, \neg p \vdash p$}
+			\end{prooftree}
+
+		\end{enumerate}
+	\end{enumerate}
+\end{document}
