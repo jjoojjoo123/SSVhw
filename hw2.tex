@@ -1,8 +1,8 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage{xeCJK}
 \usepackage{changepage}
 \usepackage{bussproofs}
-\usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+\usepackage[top=2cm,left=0.25cm,right=0.25cm,bottom=2cm]{geometry}
 
 \title{HW2}
 \author{r08725027 林宏陽}
@@ -266,6 +266,100 @@
 				\BinaryInfC{$\Gamma \vdash y = e \cdot y$}
 			\end{prooftree}
 			\item ~
+			Let $\Gamma$ denote $M, (x \cdot y = e) \land (y \cdot x = e) \land (x \cdot z = e) \land (z \cdot x = e)$.
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a ((a \cdot e = a) \land (e \cdot a = a))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (y \cdot e = y) \land (e \cdot y = y)$}
+				\RightLabel{$(\land E_{1})$}
+				\UnaryInfC{$\Gamma \vdash y \cdot e = y$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall a \forall b \forall c((a \cdot b = e) \land (b \cdot a = e) \land (a \cdot c = e) \land (c \cdot a = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall b \forall c((x \cdot b = e) \land (b \cdot x = e) \land (x \cdot c = e) \land (c \cdot x = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall c((x \cdot y = e) \land (y \cdot x = e) \land (x \cdot c = e) \land (c \cdot x = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (x \cdot y = e) \land (y \cdot x = e) \land (x \cdot z = e) \land (z \cdot x = e)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash (y \cdot x = e) \land (x \cdot z = e) \land (z \cdot x = e)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash (x \cdot z = e) \land (z \cdot x = e)$}
+				\RightLabel{$(\land E_{1})$}
+				\UnaryInfC{$\Gamma \vdash x \cdot z = e$}
+
+				\AxiomC{$\alpha$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y \cdot e = z$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y = z$}
+				\RightLabel{$(\to I)$}	
+				\UnaryInfC{$M \vdash ((x \cdot y = e) \land (y \cdot x = e) \land (x \cdot z = e) \land (z \cdot x = e)) \to y = z$}
+				\RightLabel{$(\forall I)$}				
+				\UnaryInfC{$M \vdash \forall c(((x \cdot y = e) \land (y \cdot x = e) \land (x \cdot c = e) \land (c \cdot x = e)) \to y = c)$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$M \vdash \forall b \forall c(((x \cdot b = e) \land (b \cdot x = e) \land (x \cdot c = e) \land (c \cdot x = e)) \to b = c)$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$M \vdash \forall a \forall b \forall c(((a \cdot b = e) \land (b \cdot a = e) \land (a \cdot c = e) \land (c \cdot a = e)) \to b = c)$}
+			\end{prooftree}
+			where $\alpha$ is the following tree :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a \forall b \forall c ((b \cdot a) \cdot c = b \cdot (a \cdot c))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall b \forall c ((b \cdot x) \cdot c = b \cdot (x \cdot c))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall c ((y \cdot x) \cdot c = y \cdot (x \cdot c))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (y \cdot x) \cdot z = y \cdot (x \cdot z)$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a \forall b \forall c ((a \cdot b = e) \land (b \cdot a = e) \land (a \cdot c = e) \land (c \cdot a = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall b \forall c ((x \cdot b = e) \land (b \cdot x = e) \land (x \cdot c = e) \land (c \cdot x = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall c ((x \cdot y = e) \land (y \cdot x = e) \land (x \cdot c = e) \land (c \cdot x = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (x \cdot y = e) \land (y \cdot x = e) \land (x \cdot z = e) \land (z \cdot x = e)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash (y \cdot x = e) \land (x \cdot z = e) \land (z \cdot x = e)$}
+				\RightLabel{$(\land E_{1})$}
+				\UnaryInfC{$\Gamma \vdash e = y \cdot x$}
+
+				\AxiomC{$\beta$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash (y \cdot x) \cdot z = z$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y \cdot (x \cdot z) = z$}
+			\end{prooftree}
+			$\beta$ :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a ((a \cdot e = a) \land (e \cdot a = a))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (z \cdot e = z) \land (e \cdot z = z)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash z = e \cdot z$}
+				
+				\AxiomC{}
+				\RightLabel{$(=I)$}
+				\UnaryInfC{$\Gamma \vdash z = z$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash e \cdot z = z$}
+			\end{prooftree}
 		\end{enumerate}
 	\end{enumerate}
 \end{document}
