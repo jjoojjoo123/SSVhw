@@ -1,0 +1,271 @@
+\documentclass[11pt]{article}
+\usepackage{xeCJK}
+\usepackage{changepage}
+\usepackage{bussproofs}
+\usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+
+\title{HW2}
+\author{r08725027 林宏陽}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}
+	\item 
+		\begin{enumerate}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\forall x (P(x) \to Q (x)), \forall x P(x) \vdash \forall x (P(x) \to Q (x))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\forall x (P(x) \to Q (x)), \forall x P(x) \vdash P(y) \to Q(y)$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\forall x (P(x) \to Q (x)), \forall x P(x) \vdash \forall x P(x)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\forall x (P(x) \to Q (x)), \forall x P(x) \vdash P(y)$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$\forall x (P(x) \to Q (x)), \forall x P(x) \vdash Q(y)$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$\forall x (P(x) \to Q (x)), \forall x P(x) \vdash \forall x Q(x)$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\forall x (P(x) \to Q (x)) \vdash \forall x P(x) \to \forall x Q(x)$}
+			\end{prooftree}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\exists x \forall y P(x,y) \vdash \exists x \forall y P(x,y)$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\exists x \forall y P(x,y), \forall y P(w,y) \vdash \forall y P(w,y)$}
+
+				\RightLabel{$(\exists E)$}
+				\BinaryInfC{$\exists x \forall y P(x,y) \vdash \forall y P(w,y)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\exists x \forall y P(x,y) \vdash P(w,z)$}
+				\RightLabel{$(\exists I)$}
+				\UnaryInfC{$\exists x \forall y P(x,y) \vdash \exists x P(x,z)$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$\exists x \forall y P(x,y) \vdash \forall y \exists x P(x,y)$}
+
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\vdash \exists x \forall y P(x,y) \to \forall y \exists x P(x,y)$}
+			\end{prooftree}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\forall x (A(x) \to B), \exists x A(x), A(y) \vdash \forall x (A(x) \to B)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\forall x (A(x) \to B), \exists x A(x), A(y) \vdash A(y) \to B$}
+
+				\AxiomC{$\alpha$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$\forall x (A(x) \to B), \exists x A(x) \vdash B$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\forall x (A(x) \to B) \vdash \exists x A(x) \to B$}
+			\end{prooftree}
+			where $\alpha$ is the following tree :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\forall x (A(x) \to B), \exists x A(x), A(y) \vdash \exists x A(x)$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\forall x (A(x) \to B), \exists x A(x), A(y) \vdash A(y)$}
+
+				\RightLabel{$(\exists E)$}
+				\BinaryInfC{$\forall x (A(x) \to B), \exists x A(x) \vdash A(y)$}
+			\end{prooftree}
+		\end{enumerate}
+	
+	\item 
+		\begin{enumerate}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$t_{2} = t_{1} \vdash t_{2} = t_{1}$}
+
+				\AxiomC{}
+				\RightLabel{$(=I)$}
+				\UnaryInfC{$t_{2} = t_{1} \vdash t_{2} = t_{2}$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$t_{2} = t_{1} \vdash t_{1} = t_{2}$}
+			\end{prooftree}
+
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$t_{1} = t_{2}, t_{2} = t_{3} \vdash t_{2} = t_{3}$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$t_{1} = t_{2}, t_{2} = t_{3} \vdash t_{1} = t_{2}$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$t_{1} = t_{2}, t_{2} = t_{3} \vdash t_{1} = t_{3}$}
+			\end{prooftree}
+		\end{enumerate}
+	
+	\item 
+		\begin{enumerate}
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma, t_{2} = t_{1} \vdash t_{1} = t_{2}$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\Gamma \vdash (t_{2} = t_{1}) \to (t_{1} = t_{2})$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash t_{2} = t_{1}$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$\Gamma \vdash t_{1} = t_{2}$}
+			\end{prooftree}
+
+			\item ~
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma, t_{1} = t_{2}, t_{2} = t_{3} \vdash t_{1} = t_{3}$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\Gamma, t_{1} = t_{2} \vdash (t_{2} = t_{3}) \to (t_{1} = t_{3})$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$\Gamma \vdash (t_{1} = t_{2}) \to ((t_{2} = t_{3}) \to (t_{1} = t_{3}))$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash t_{1} = t_{2}$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$\Gamma \vdash (t_{2} = t_{3}) \to (t_{1} = t_{3})$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash t_{2} = t_{3}$}
+
+				\RightLabel{$(\to E)$}
+				\BinaryInfC{$\Gamma \vdash t_{1} = t_{3}$}
+			\end{prooftree}
+		\end{enumerate}
+		\item 
+		\begin{enumerate}
+			\item ~
+			Let $\Gamma$ denote $M, x \cdot y = x \cdot z$.
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a ((a \cdot e = a) \land (e \cdot a = a))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (z \cdot e = z) \land (e \cdot z = z)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash e \cdot z = z$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a ((e = a^{-1} \cdot a) \land (a^{-1} \cdot a = e))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (e = x^{-1} \cdot x) \land (x^{-1} \cdot x = e)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash x^{-1} \cdot x = e$}
+
+				\AxiomC{$\alpha$}
+
+				\RightLabel{$(= E)$}
+				\BinaryInfC{$\Gamma \vdash y = e \cdot z$}
+
+				\RightLabel{$(= E)$}
+				\BinaryInfC{$\Gamma \vdash y = z$}
+				\RightLabel{$(\to I)$}
+				\UnaryInfC{$M \vdash (x \cdot y = x \cdot z) \to y = z$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$M \vdash \forall c ((x \cdot y = x \cdot c) \to y = c)$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$M \vdash \forall b \forall c ((x \cdot b = x \cdot c) \to b = c)$}
+				\RightLabel{$(\forall I)$}
+				\UnaryInfC{$M \vdash \forall a \forall b \forall c ((a \cdot b = a \cdot c) \to b = c)$}
+			\end{prooftree}
+			where $\alpha$ is the following tree :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a \forall b \forall c (a \cdot (b \cdot c) = (a \cdot b) \cdot c)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall b \forall c (x^{-1} \cdot (b \cdot c) = (x^{-1} \cdot b) \cdot c)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall c (x^{-1} \cdot (x \cdot c) = (x^{-1} \cdot x) \cdot c)$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash x^{-1} \cdot (x \cdot z) = (x^{-1} \cdot x) \cdot z$}
+
+				\AxiomC{}
+				\UnaryInfC{$\Gamma \vdash x \cdot y = x \cdot z$}
+
+				\AxiomC{$\beta$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y = x^{-1} \cdot (x \cdot z)$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y = (x^{-1} \cdot x) \cdot z$}
+			\end{prooftree}
+			$\beta$ :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall b \forall c ((a \cdot b) \cdot c = a \cdot (b \cdot c))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall b \forall c ((x^{-1} \cdot b) \cdot c = x^{-1} \cdot (b \cdot c))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash \forall c ((x^{-1} \cdot x) \cdot c = x^{-1} \cdot (x \cdot c))$}
+				\RightLabel{$(=E)$}
+				\UnaryInfC{$\Gamma \vdash (x^{-1} \cdot x) \cdot y = x^{-1} \cdot (x \cdot y)$}
+
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a ((a^{-1} \cdot a = e) \land (e = a^{-1} \cdot a))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (x^{-1} \cdot x = e) \land (e = x^{-1} \cdot x)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash e = x^{-1} \cdot x$}
+
+				\AxiomC{$\gamma$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y = (x^{-1} \cdot x) \cdot y$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y = x^{-1} \cdot (x \cdot y)$}
+			\end{prooftree}
+			$\gamma$ :
+			\begin{prooftree}
+				\AxiomC{}
+				\RightLabel{$(Ax)$}
+				\UnaryInfC{$\Gamma \vdash \forall a ((a \cdot e = a) \land (e \cdot a = a))$}
+				\RightLabel{$(\forall E)$}
+				\UnaryInfC{$\Gamma \vdash (y \cdot e = y) \land (e \cdot y = y)$}
+				\RightLabel{$(\land E_{2})$}
+				\UnaryInfC{$\Gamma \vdash  y = e \cdot y$}
+
+				\AxiomC{}
+				\RightLabel{$(=I)$}
+				\UnaryInfC{$\Gamma \vdash y = y$}
+
+				\RightLabel{$(=E)$}
+				\BinaryInfC{$\Gamma \vdash y = e \cdot y$}
+			\end{prooftree}
+			\item ~
+		\end{enumerate}
+	\end{enumerate}
+\end{document}
