@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage{xeCJK}
+\usepackage{changepage}
+\usepackage{bussproofs}
+\usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+
+\title{HW4}
+\author{r08725027 林宏陽}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}
+	\item 
+		\begin{enumerate}
+			\item ~
+				\begin{prooftree}
+						\AxiomC{$\alpha$}
+
+						\AxiomC{pred. calculus + algebra}
+						\UnaryInfC{$true \land \neg (x < y) \to x \geq y$}	
+					\RightLabel{(If-Then)}
+					\BinaryInfC{$\{true\}$ \textbf{if} $x < y$ \textbf{then} $x, y := y, x$ \textbf{fi} $\{x \geq y\}$}	
+				\end{prooftree}
+				where $\alpha$ is the following tree :
+				\begin{prooftree}
+
+						\AxiomC{pred. calculus + algebra}
+						\UnaryInfC{$(true \land (x < y)) \to (x \leq y)$}
+
+						\AxiomC{}
+						\RightLabel{(Assign.)}
+						\UnaryInfC{$\{true \land (x \leq y)\}(\equiv x \geq y[y,x/x,y])~ x, y := y, x ~\{x \geq y\}$}
+					\RightLabel{(S. Pre.)}
+					\BinaryInfC{$\{true \land (x < y)\}~ x, y := y, x ~\{x \geq y\}$}
+				\end{prooftree}
+			\item ~
+				\begin{prooftree}
+						\AxiomC{pred. calculus + algebra}
+						\UnaryInfC{$(g = 0 \land p = n \land n \geq 1) \to P'$}
+
+						\AxiomC{$\alpha$}
+
+						\AxiomC{pred. calculus + algebra}
+						\UnaryInfC{$Q' \to (g = n-1)$}
+					\RightLabel{(Conseq.)}
+					\TrinaryInfC{$\{g = 0 \land p = n \land n \geq 1\}$ \textbf{while} $p \geq 2$ \textbf{do} $S$ \textbf{od} $\{g = n-1\}$}
+				\end{prooftree}
+				where $S$ denotes $g,p := g+1,p-1$,\\
+				$P'$ denotes $p \geq 1 \land g + p = n$,\\
+				and $Q'$ denotes $p \geq 1 \land g + p = n \land \neg(p \geq 2)$.\\
+				$\alpha$ is the following tree :
+				\begin{prooftree}
+					\AxiomC{}
+					\RightLabel{(Assign.)}
+					\UnaryInfC{$\{P' \land p \geq 2(\equiv Q'[g+1, p-1/g,p])\}~S~\{Q'\}$}
+					\RightLabel{(While)}
+					\UnaryInfC{$\{P'\}$ \textbf{while} $p \geq 2$ \textbf{do} $S$ \textbf{od} $\{Q'\}$}
+				\end{prooftree}
+			\item ~
+		\end{enumerate}
+	\item 
+		\begin{enumerate}
+			\item ~
+			\item ~
+		\end{enumerate}
+	\end{enumerate}
+\end{document}
