@@ -2,7 +2,15 @@
 \usepackage{xeCJK}
 \usepackage{changepage}
 \usepackage{bussproofs}
+\usepackage{amsmath}
 \usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+\usepackage{listings}
+
+\newfontfamily{\ttconsolas}{Consolas}
+
+\lstset{
+  basicstyle=\ttconsolas,
+}
 
 \title{HW4}
 \author{r08725027 林宏陽}
@@ -58,10 +66,116 @@
 					\UnaryInfC{$\{P'\}$ \textbf{while} $p \geq 2$ \textbf{do} $S$ \textbf{od} $\{Q'\}$}
 				\end{prooftree}
 			\item ~
+				\begin{prooftree}
+					\AxiomC{$\alpha$}
+
+					\AxiomC{$\beta$}
+
+					\AxiomC{pred. calculus + algebra}
+					\UnaryInfC{$y > 0 \land (x \equiv m (\text{mod } y)) \land x \geq y \to x \geq 0$}
+
+					\RightLabel{(While : simply total)}
+					\TrinaryInfC{$\{y > 0 \land (x \equiv m (\text{mod } y))\}$ \textbf{while} $x \geq y$ \textbf{do} $x := x-y$ \textbf{od} $\{(x \equiv m (\text{mod } y)) \land x < y\}$}
+				\end{prooftree}
+				where $\alpha$ is the following tree :
+				\begin{prooftree}
+						\AxiomC{pred. calculus + algebra}
+						\UnaryInfC{$y > 0 \land (x \equiv m (\text{mod } y)) \land x \geq y \to y > 0 \land (x - y \equiv m (\text{mod } y))$}
+
+						\AxiomC{$\gamma$}
+
+					\RightLabel{(S. Pre)}
+					\BinaryInfC{$\{y > 0 \land (x \equiv m (\text{mod } y)) \land x \geq y\}$ $x := x-y$ $\{y > 0 \land (x \equiv m (\text{mod } y))\}$}
+				\end{prooftree}
+				$\beta$ :
+					\begin{prooftree}
+						\AxiomC{$\delta$}
+
+						\AxiomC{}
+						\RightLabel{(Assign.)}
+						\UnaryInfC{$x - y < Z(\equiv x < Z[x-y/x])$ $x:=x-y$ $\{x < Z\}$}
+
+						\RightLabel{(S. Pre)}
+						\BinaryInfC{$\{y > 0 \land (x \equiv m (\text{mod } y)) \land x \geq y \land x = Z\}$ $x:=x-y$ $\{x < Z\}$}
+					\end{prooftree}
+				$\gamma$ :
+					\begin{prooftree}
+						\AxiomC{}
+						\RightLabel{(Assign.)}
+						\UnaryInfC{$\{y > 0 \land (x - y \equiv m (\text{mod } y)) (\equiv (y > 0 \land x \equiv m (\text{mod } y))[x-y/x])\}$$x:=x-y$$\{y > 0 \land (x \equiv m (\text{mod } y))\}$}
+					\end{prooftree}
+				$\delta$ :
+					\begin{prooftree}
+						\AxiomC{pred. calculus + algebra}
+						\UnaryInfC{$\{y > 0 \land (x \equiv m (\text{mod } y)) \land x \geq y \land x = Z\} \to x - y < Z$}
+					\end{prooftree}
 		\end{enumerate}
 	\item 
 		\begin{enumerate}
 			\item ~
+\begin{lstlisting}[escapeinside={(*}{*)}]
+(*$\{\}$*)
+C,M := X[1],1;
+(*$\{C = X[1] \land M = 1\}$*)
+i := 2;
+(*$\{C = X[1] \land M = 1 \land i = 2\}$*)
+while i<=n do
+	(*$\{i \leq n \land M \geq 0\}$*)
+	if M=0 then
+			(*$\{i \leq n \land M = 0\}$*)
+			C,M := X[i],1
+			(*$\{i \leq n \land C = X[i] \land M = 1\}$*)
+		else if C=X[i] then
+					(*$\{i \leq n \land C = X[i] \land M \geq 0 \land M \neq 0\}$*)
+					M := M+1
+					(*$\{i \leq n \land C = X[i] \land M > 0\}$*)
+				else
+					(*$\{i \leq n \land C \neq X[i] \land M \geq 0 \land M \neq 0\}$*)
+					M := M-1
+					(*$\{i \leq n \land C \neq X[i] \land M \geq 0\}$*)
+		fi
+		(*$\{i \leq n \land M \geq 0\}$*)
+	fi;
+	(*$\{i \leq n \land M \geq 0\}$*)
+	i := i+1
+	(*$\{i < n \land M \geq 0\}$*)
+od;
+(*$\{i > n \land M \geq 0\}$*)
+if M=0 then
+		(*$\{i > n \land M = 0\}$*)
+		Majority := -1
+		(*$\{i > n \land M = 0 \land Majority = -1\}$*)
+	else
+		(*$\{i > n \land M > 0\}$*)
+		Count := 0;
+		(*$\{i > n \land M > 0 \land Count = 0\}$*)
+		i := 1;
+		(*$\{i = n \land M > 0 \land Count = 0\}$*)
+		while i<=n do
+			(*$\{i \leq n \land M > 0 \land Count \geq 0\}$*)
+			if X[i]=C then
+					(*$\{i \leq n \land M > 0 \land Count \geq 0 \land X[i]=C\}$*)
+					Count := Count+1
+					(*$\{i \leq n \land M > 0 \land Count > 0 \land X[i]=C\}$*)
+			fi;
+			(*$\{i \leq n \land M > 0 \land Count \geq 0\}$*)
+			i := i+1
+			(*$\{i \leq n+1 \land M > 0 \land Count \geq 0\}$*)
+		od;
+		(*$\{i > n \land M > 0 \land Count \geq 0\}$*)
+		if Count>n/2 then
+					(*$\{i > n \land M > 0 \land Count>\frac{n}{2}\}$*)
+					Majority := C
+					(*$\{i > n \land M > 0 \land Count>\frac{n}{2} \land Majority = C\}$*)
+				else
+					(*$\{i > n \land M > 0 \land 0 \leq Count \leq \frac{n}{2}\}$*)
+					Majority := -1
+					(*$\{i > n \land M > 0 \land 0 \leq Count \leq \frac{n}{2} \land Majority = -1\}$*)
+		fi
+		(*$\{i > n \land M > 0 \land 0 \leq Count \leq \frac{n}{2}\}$*)
+fi
+(*$\{i > n \land M > 0\}$*)
+\end{lstlisting}
 			\item ~
 		\end{enumerate}
 	\end{enumerate}
