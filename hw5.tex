@@ -1,0 +1,58 @@
+\documentclass[11pt]{article}
+\usepackage{xeCJK}
+\usepackage{changepage}
+\usepackage{bussproofs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+
+\title{HW5}
+\author{r08725027 林宏陽}
+\date{\today}
+
+\begin{document}
+	\maketitle
+	\begin{enumerate}
+	\item 
+		\begin{enumerate}
+			\item ~
+			\item ~
+		\end{enumerate}
+
+	\item 
+		\begin{enumerate}
+			\item ~
+			\item ~
+		\end{enumerate}
+	\item ~
+		\begin{prooftree}
+
+					\AxiomC{pred. calculus}
+					\UnaryInfC{$x>y\land x<y \to y=x$}
+
+					\AxiomC{}
+					\RightLabel{(Assign.)}
+					\UnaryInfC{$\{z=x[y/z]\}~z:=y~\{z=x\}$}
+
+				\RightLabel{(S.Pre)}
+				\BinaryInfC{$\{x>y\land x<y\}~z:=y~\{z=x\}$}
+
+					\AxiomC{$\alpha$}
+			\RightLabel{(Conditional)}
+			\BinaryInfC{$\{x>y\}$ \textbf{if} $x<y$ \textbf{then} $z:=y$ \textbf{else} $z:=x$ $\{z=x\}$}
+			\RightLabel{(Proc.)}
+			\UnaryInfC{$\{(x>y)[a,b/x,y]\}~max(a,b,c)~\{(z=x)[a,b,c/x,y,z]\}$}
+		\end{prooftree}
+		where $\alpha$ is the following tree:
+		\begin{prooftree}
+					\AxiomC{pred. calculus}
+					\UnaryInfC{$x>y\land x\nless y \to x=x$}
+
+					\AxiomC{}
+					\RightLabel{(Assign.)}
+					\UnaryInfC{$\{z=x[x/z]\}~z:=x~\{z=x\}$}
+				\RightLabel{(S.Pre)}
+				\BinaryInfC{$\{x>y\land x\nless y\}~z:=y~\{z=x\}$}
+		\end{prooftree}
+	\end{enumerate}
+\end{document}
