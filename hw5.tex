@@ -4,7 +4,10 @@
 \usepackage{bussproofs}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{stmaryrd}
 \usepackage[top=2cm,left=0.5cm,right=0.5cm,bottom=2cm]{geometry}
+
+\renewcommand{\baselinestretch}{1.5}
 
 \title{HW5}
 \author{r08725027 林宏陽}
@@ -16,7 +19,45 @@
 	\item 
 		\begin{enumerate}
 			\item ~
-			\item ~
+			\item By induction on $S$:
+			\begin{itemize}
+				\item Skip : $S\equiv$ \textbf{skip}
+					\begin{align*}
+						&\{wlp(\textbf{skip}, q)\}\textbf{ skip }\{q\}\\
+						\leftrightarrow~ & \{q\}\textbf{ skip }\{q\}
+					\end{align*}
+					is valid since $\mathcal{M}\llbracket\textbf{skip}\rrbracket(q) = \emptyset \subseteq \llbracket q\rrbracket$.
+				\item Assingment : $S\equiv u:=t$
+					\begin{align*}
+						&\{wlp(u:=t, q)\}~u:=t~\{q\}\\
+						\leftrightarrow~ & \{q[t/u]\}~u:=t~\{q\}
+					\end{align*}
+					is valid by soundness.
+				\item Composition : $S\equiv S_{1};S_{2}$\\
+					From induction hypothesis, we have $\models \{wlp(S_{1}, q)\}~S_{1}~\{q\}$ and $\models \{wlp(S_{2}, q)\}~S_{2}~\{q\}$, that is,\\ $\mathcal{M}\llbracket S_{1} \rrbracket (\llbracket wlp(S_{1}, q) \rrbracket) \subseteq \llbracket q \rrbracket$ and $\mathcal{M}\llbracket S_{2} \rrbracket (\llbracket wlp(S_{2}, q) \rrbracket) \subseteq \llbracket q \rrbracket$.\\ To prove $\models \{wlp(S_{1};S_{2},q)\}~S_{1};S_{2}~\{q\}$, we need to show $\mathcal{M}\llbracket S_{1};S_{2}\rrbracket(\llbracket wlp(S_{1};S_{2}, q)\rrbracket) \subseteq \llbracket q \rrbracket$.
+					\begin{align*}
+						&\mathcal{M}\llbracket S_{1};S_{2}\rrbracket(\llbracket wlp(S_{1};S_{2}, q)\rrbracket)\\
+						=~ & \mathcal{M}\llbracket S_{2}\rrbracket(\mathcal{M}\llbracket S_{1}\rrbracket(\llbracket wlp(S_{1}, wlp(S_{2}, q)) \rrbracket))\\
+						&\{\text{Monotonicity of }\mathcal{M}\llbracket S_{2} \rrbracket\}\\
+						\subseteq~ & \mathcal{M}\llbracket S_{2} \rrbracket(\llbracket wlp(S_{2}, q) \rrbracket)\\
+						&\{\text{Induction Hypothesis}\}\\
+						\subseteq~ & \llbracket q \rrbracket
+					\end{align*}
+				\item Conditional : $S\equiv$ \textbf{if} $B$ \textbf{then} $S_{1}$ \textbf{else} $S_{2}$ \textbf{fi}\\
+					From induction hypothesis, we have $\models \{wlp(S_{1}, q)\}~S_{1}~\{q\}$ and $\models \{wlp(S_{2}, q)\}~S_{2}~\{q\}$, that is,\\ $\mathcal{M}\llbracket S_{1} \rrbracket (\llbracket wlp(S_{1}, q) \rrbracket) \subseteq \llbracket q \rrbracket$ and $\mathcal{M}\llbracket S_{2} \rrbracket (\llbracket wlp(S_{2}, q) \rrbracket) \subseteq \llbracket q \rrbracket$.\\ To prove $\models \{wlp(S,q)\}~S~\{q\}$, we need to show $\mathcal{M}\llbracket S\rrbracket(\llbracket wlp(S, q)\rrbracket) \subseteq \llbracket q \rrbracket$.
+					\begin{align*}
+						&\mathcal{M}\llbracket S\rrbracket(\llbracket wlp(S, q)\rrbracket)\\
+						=~ & \mathcal{M}\llbracket S_{1}\rrbracket(\llbracket (B \land wlp(S_{1}, q)) \lor (\neg B \land wlp(S_{2}, q))\rrbracket \cap \llbracket B \rrbracket)\\
+						& \cup \mathcal{M}\llbracket S_{2}\rrbracket(\llbracket (B \land wlp(S_{1}, q)) \lor (\neg B \land wlp(S_{2}, q))\rrbracket \cap \llbracket \neg B \rrbracket)\\
+						=~ & \mathcal{M}\llbracket S_{1}\rrbracket(\llbracket (B \land wlp(S_{1}, q)) \rrbracket) \cup \mathcal{M}\llbracket S_{2}\rrbracket(\llbracket (\neg B \land wlp(S_{2}, q)) \rrbracket)\\
+						&\{B \land wlp(S_{1}, q) \to wlp(S_{1}, q) \text{ and } \neg B \land wlp(S_{2}, q) \to wlp(S_{2}, q)\}\\
+						\subseteq~ & \mathcal{M}\llbracket S_{1}\rrbracket(\llbracket (wlp(S_{1}, q)) \rrbracket) \cup \mathcal{M}\llbracket S_{2}\rrbracket(\llbracket (wlp(S_{2}, q)) \rrbracket)\\
+						&\{\text{Induction Hypothesis}\}\\
+						\subseteq~ & \llbracket q \rrbracket
+					\end{align*}
+				\item While : $S\equiv$ \textbf{while} $B$ \textbf{do} $S_{1}$ \textbf{od}\\
+					From induction hypothesis, we have $\models \{wlp(S_{1}, q)\}~S_{1}~\{q\}$, that is, $\mathcal{M}\llbracket S_{1} \rrbracket (\llbracket wlp(S_{1}, q) \rrbracket) \subseteq \llbracket q \rrbracket$.\\ To prove $\models \{wlp(S,q)\}~S~\{q\}$, we need to show $\mathcal{M}\llbracket S\rrbracket(\llbracket wlp(S, q)\rrbracket) \subseteq \llbracket q \rrbracket$.
+			\end{itemize}
 		\end{enumerate}
 
 	\item 
