@@ -38,46 +38,60 @@
 					\item $\mathcal{M}\llbracket u:=t \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket \to \llbracket p \rrbracket \subseteq \llbracket q[t/u] \rrbracket$ is similar to i.
 				\end{enumerate}
 				\item Composition : $S\equiv S_{1};S_{2}$
-				\begin{enumerate}
-					\item $\llbracket p \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S_{2}, q)) \rrbracket \to \mathcal{M} \llbracket S_{1};S_{2} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket$
 					\begin{align*}
 						& \llbracket p \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S_{2}, q)) \rrbracket\\
 						&\{\text{Induction Hypothesis}\}\\
-						\Rightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket wlp(S_{2}, q) \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket wlp(S_{2}, q) \rrbracket\\
 						&\{\text{Induction Hypothesis}\}\\
-						\Rightarrow ~& \mathcal{M}\llbracket S_{2} \rrbracket(\mathcal{M} \llbracket S_{1} \rrbracket (\llbracket p \rrbracket)) \subseteq \llbracket q \rrbracket\\
-						\equiv ~& \mathcal{M} \llbracket S_{1};S_{2} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M}\llbracket S_{2} \rrbracket(\mathcal{M} \llbracket S_{1} \rrbracket (\llbracket p \rrbracket)) \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M} \llbracket S_{1};S_{2} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
 					\end{align*}
-					\item $\mathcal{M} \llbracket S_{1};S_{2} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket \to \llbracket p \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S_{2}, q)) \rrbracket$
-					\begin{align*}
-						& \mathcal{M} \llbracket S_{1};S_{2} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
-						\equiv ~& \mathcal{M}\llbracket S_{2} \rrbracket(\mathcal{M} \llbracket S_{1} \rrbracket (\llbracket p \rrbracket)) \subseteq \llbracket q \rrbracket\\
-						&\{\text{Induction Hypothesis}\}\\
-						\Rightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket wlp(S_{2}, q) \rrbracket\\
-						&\{\text{Induction Hypothesis}\}\\
-						\Rightarrow ~& \llbracket p \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S_{2}, q)) \rrbracket
-					\end{align*}
-				\end{enumerate}
 				\item Conditional : $S\equiv$ \textbf{if} $B$ \textbf{then} $S_{1}$ \textbf{else} $S_{2}$ \textbf{fi}
-				\begin{enumerate}
-					\item $\llbracket p \rrbracket \subseteq \llbracket wlp(S, q) \rrbracket \to \mathcal{M} \llbracket S \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket$
 					\begin{align*}
 						& \llbracket p \rrbracket \subseteq \llbracket ((B \land wlp(S_{1}, q)) \lor (\neg B \land wlp(S_{2}, q)))\\
-						\Rightarrow ~& \begin{cases}
+						\Leftrightarrow ~& \begin{cases}
 							\llbracket p \land B \rrbracket \subseteq \llbracket B \land wlp(S_{1}, q) \rrbracket \subseteq \llbracket wlp(S_{1}, q) \rrbracket\\
 							\llbracket p \land \neg B \rrbracket \subseteq \llbracket \neg B \land wlp(S_{2}, q) \rrbracket \subseteq \llbracket wlp(S_{2}, q) \rrbracket
 						\end{cases}\\
 						&\{\text{Induction Hypothesis}\}\\
-						\Rightarrow ~& \begin{cases}
+						\Leftrightarrow ~& \begin{cases}
 							\mathcal{M}\llbracket S_{1} \rrbracket (\llbracket p \land B \rrbracket) \subseteq \llbracket q \rrbracket\\
 							\mathcal{M}\llbracket S_{2} \rrbracket (\llbracket p \land \neg B \rrbracket) \subseteq \llbracket q \rrbracket\\
 						\end{cases}\\
-						\Rightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket (\llbracket p \land B \rrbracket) \cup \mathcal{M}\llbracket S_{2} \rrbracket (\llbracket p \land \neg B \rrbracket) \subseteq \llbracket q \rrbracket\\
-						\Rightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket (\llbracket p \rrbracket \cap \llbracket B \rrbracket) \cup \mathcal{M}\llbracket S_{2} \rrbracket (\llbracket p \rrbracket \cap \llbracket \neg B \rrbracket) \subseteq \llbracket q \rrbracket\\
-						\equiv ~& \mathcal{M} \llbracket S \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket
+						\Leftrightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket (\llbracket p \land B \rrbracket) \cup \mathcal{M}\llbracket S_{2} \rrbracket (\llbracket p \land \neg B \rrbracket) \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M}\llbracket S_{1} \rrbracket (\llbracket p \rrbracket \cap \llbracket B \rrbracket) \cup \mathcal{M}\llbracket S_{2} \rrbracket (\llbracket p \rrbracket \cap \llbracket \neg B \rrbracket) \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M} \llbracket S \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket
 					\end{align*}
-					\item $\mathcal{M} \llbracket S \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket \to \llbracket p \rrbracket \subseteq \llbracket wlp(S, q) \rrbracket$ is similar.
-				\end{enumerate}
+				\item While : $S\equiv$ \textbf{while} $B$ \textbf{do} $S_{1}$ \textbf{od}\\
+					\begin{align*}
+						& \bigcup_{k=0}^{\infty} \mathcal{M} \llbracket S^{k} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket \to \llbracket p \rrbracket \subseteq \llbracket wlp(S, q) \rrbracket
+					\end{align*}
+					The base case $k=0$:
+					\begin{align*}
+						& \mathcal{M} \llbracket S^{0} \rrbracket(\llbracket p \rrbracket) = \emptyset \subseteq \llbracket q \rrbracket \leftrightarrow  \llbracket p \rrbracket \subseteq \llbracket wlp(S^{0}, q) \rrbracket
+					\end{align*}
+					Inductive steps:
+					\begin{align*}
+						& \mathcal{M} \llbracket S^{k+1} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M} \llbracket \textbf{if } B \textbf{ then } S_{1};S^{k} \textbf{ else skip fi} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M} \llbracket S^{k}\rrbracket(\mathcal{M} \llbracket S_{1}\rrbracket(\llbracket p \land B \rrbracket)) \cup \llbracket p \land \neg B \rrbracket \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \begin{cases}
+							\mathcal{M} \llbracket S^{k}\rrbracket(\mathcal{M} \llbracket S_{1}\rrbracket(\llbracket p \land B \rrbracket)) \subseteq \llbracket q \rrbracket\\
+							\llbracket p \land \neg B \rrbracket \subseteq \llbracket q \rrbracket
+						\end{cases}
+					\end{align*}
+					By Induction Hypothesis, we have:
+					\begin{align*}
+						\mathcal{M}\llbracket S_{1} \rrbracket(\llbracket p \land B \rrbracket) \subseteq \llbracket wlp(S^{k}, q) \rrbracket
+					\end{align*}
+					Again, we have:
+					\begin{align*}
+						\llbracket p \land B \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S^{k}, q)) \rrbracket
+					\end{align*}
+					\begin{align*}
+						& \llbracket p \rrbracket = \llbracket p \land B \rrbracket \cup \llbracket p \land \neg B \rrbracket\\
+						\subseteq ~& \llbracket wlp(S_{1}, wlp(S^{k}, q)) \rrbracket \cup \llbracket q \rrbracket
+					\end{align*}
 			\end{itemize}
 
 
