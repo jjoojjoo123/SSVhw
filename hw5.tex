@@ -74,23 +74,30 @@
 					\begin{align*}
 						& \mathcal{M} \llbracket S^{k+1} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
 						\Leftrightarrow ~& \mathcal{M} \llbracket \textbf{if } B \textbf{ then } S_{1};S^{k} \textbf{ else skip fi} \rrbracket(\llbracket p \rrbracket) \subseteq \llbracket q \rrbracket\\
-						\Leftrightarrow ~& \mathcal{M} \llbracket S^{k}\rrbracket(\mathcal{M} \llbracket S_{1}\rrbracket(\llbracket p \land B \rrbracket)) \cup \llbracket p \land \neg B \rrbracket \subseteq \llbracket q \rrbracket\\
+						\Leftrightarrow ~& \mathcal{M} \llbracket S^{k}\rrbracket(\mathcal{M} \llbracket S_{1}\rrbracket(\llbracket p \land B \rrbracket)) \cup \mathcal{M} \llbracket \textbf{skip} \rrbracket (\llbracket p \land \neg B \rrbracket) \subseteq \llbracket q \rrbracket\\
 						\Leftrightarrow ~& \begin{cases}
 							\mathcal{M} \llbracket S^{k}\rrbracket(\mathcal{M} \llbracket S_{1}\rrbracket(\llbracket p \land B \rrbracket)) \subseteq \llbracket q \rrbracket\\
-							\llbracket p \land \neg B \rrbracket \subseteq \llbracket q \rrbracket
+							\mathcal{M} \llbracket \textbf{skip} \rrbracket (\llbracket p \land \neg B \rrbracket) \subseteq \llbracket q \rrbracket
 						\end{cases}
 					\end{align*}
 					By Induction Hypothesis, we have:
 					\begin{align*}
-						\mathcal{M}\llbracket S_{1} \rrbracket(\llbracket p \land B \rrbracket) \subseteq \llbracket wlp(S^{k}, q) \rrbracket
+						\begin{cases}
+							\mathcal{M}\llbracket S_{1} \rrbracket(\llbracket p \land B \rrbracket) \subseteq \llbracket wlp(S^{k}, q) \rrbracket\\
+							\llbracket p \land \neg B \rrbracket \subseteq \llbracket wlp(\textbf{skip}, q) \rrbracket = \llbracket q \rrbracket
+						\end{cases}
 					\end{align*}
 					Again, we have:
 					\begin{align*}
-						\llbracket p \land B \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S^{k}, q)) \rrbracket
+						\begin{cases}
+							\llbracket p \land B \rrbracket \subseteq \llbracket wlp(S_{1}, wlp(S^{k}, q)) \rrbracket = \llbracket wlp(S^{k+1}, q) \rrbracket\\
+							\llbracket p \land \neg B \rrbracket \subseteq \llbracket wlp(\textbf{skip}, q) \rrbracket = \llbracket q \rrbracket
+						\end{cases}
 					\end{align*}
+					Finally, 
 					\begin{align*}
 						& \llbracket p \rrbracket = \llbracket p \land B \rrbracket \cup \llbracket p \land \neg B \rrbracket\\
-						\subseteq ~& \llbracket wlp(S_{1}, wlp(S^{k}, q)) \rrbracket \cup \llbracket q \rrbracket
+						\subseteq ~& \llbracket wlp(S^{k+1}, q) \rrbracket \cup \llbracket q \rrbracket
 					\end{align*}
 			\end{itemize}
 
@@ -159,8 +166,46 @@
 
 	\item 
 		\begin{enumerate}
+			% \item By induction on $S$:
+			% \begin{itemize}
+			% 	\item Skip : $S\equiv$ \textbf{skip}\\
+			% 		If $Q_{1} \Rightarrow Q_{2}$ then $wp(S, Q_{1}) \Rightarrow wp(S, Q_{2}) \triangleq Q_{1} \Rightarrow Q_{2}$ holds.
+			% 	\item Assingment : $S\equiv u:=t$\\
+			% 		If $Q_{1} \Rightarrow Q_{2}$ then $wp(S, Q_{1}) \Rightarrow wp(S, Q_{2}) \triangleq Q_{1}[t/u] \Rightarrow Q_{2}[t/u]$ holds.
+			% 	\item Composition : $S\equiv S_{1};S_{2}$\\
+			% 		From induction hypothesis, we have if $Q_{1} \Rightarrow Q_{2}$ then $wp(S_{1}, Q_{1}) \Rightarrow wp(S_{1}, Q_{2})$ and $wp(S_{2}, Q_{1}) \Rightarrow wp(S_{2}, Q_{2})$\\
+			% 		If $Q_{1} \Rightarrow Q_{2}$ then
+			% 		\begin{align*}
+			% 			& wp(S, Q_{1}) \Rightarrow wp(S, Q_{2})\\
+			% 			\triangleq ~& wp(S_{1}, wp(S_{2}, Q_{1})) \Rightarrow wp(S_{1}, wp(S_{2}, Q_{2}))
+			% 		\end{align*}
+			% 		holds by induction.
+			% 	\item Conditional :
+			% 		\begin{align*}
+			% 			S\equiv &~ \textbf{if } B_{1} \to S_{1}\\
+			% 			&~ [] B_{2} \to S_{2}\\
+			% 			&~ \cdots\\
+			% 			&~ [] B_{n} \to S_{n}\\
+			% 			&~ \textbf{fi}
+			% 		\end{align*}
+					
+			% 		From induction hypothesis, we have if $Q_{1} \Rightarrow Q_{2}$ then $wp(S_{i}, Q_{1}) \Rightarrow wp(S_{i}, Q_{2})$ for all $i$ from $1$ to $n$.\\
+			% 		If $Q_{1} \Rightarrow Q_{2}$ then
+			% 		\begin{align*}
+			% 			& wp(S, Q_{1}) \Rightarrow wp(S, Q_{2})\\
+			% 			\triangleq ~& (\exists i:1 \leq i \leq n : B_{i}) \land (\forall i:1 \leq i \leq n : B_{i} \to wp(S_{i}, Q_{1}))\\
+			% 			& \Rightarrow (\exists i:1 \leq i \leq n : B_{i}) \land (\forall i:1 \leq i \leq n : B_{i} \to wp(S_{i}, Q_{2}))\\
+			% 			\triangleq ~& \forall i:1 \leq i \leq n : B_{i} \to wp(S_{i}, Q_{1})\Rightarrow \forall i:1 \leq i \leq n : B_{i} \to wp(S_{i}, Q_{2})\\
+			% 		\end{align*}
+			% \end{itemize}
+			
 			\item ~
-			\item ~
+			\item To prove $wp(S, Q_{1}) \lor wp(S, Q_{2}) \Rightarrow wp(S, Q_{1} \lor Q_{2})$, we need
+				\begin{enumerate}
+					\item $wp(S, Q_{1}) \Rightarrow wp(S, Q_{1} \lor Q_{2})$ and
+					\item $wp(S, Q_{2}) \Rightarrow wp(S, Q_{1} \lor Q_{2})$
+				\end{enumerate}
+				The proof of i. and ii. can be done by applying Law of Monotonicity to $Q_{1} \Rightarrow Q_{1} \lor Q_{2}$ and $Q_{2} \Rightarrow Q_{1} \lor Q_{2}$ respectively.
 		\end{enumerate}
 	\item ~
 		\begin{prooftree}
